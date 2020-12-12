@@ -125,6 +125,7 @@ int main(){
     double cpu_time_used;
 	start = clock();
 
+    // STEP 1: Construct the tree
     NODE root = wcTreeConstruction(rows, insertedRows);
     freqRows = (freqThreshold * insertedRows) / 100;
 	rareRows = (rareThreshold * insertedRows) / 100;
@@ -133,6 +134,7 @@ int main(){
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("INSERTION: %lf seconds\n", cpu_time_used);
 
+    // STEP 2: Mine the tree
     if(root -> child){
         mineTree(root -> child, allCombinations);
     }
@@ -148,7 +150,7 @@ int main(){
     printf("Total Memory Usage : %lu bytes\n\n", memUsageTotal);
     printf("Number of nodes : %lu \n", tempMem);
 
-    // PRINTING IT INTO FILES
+    // Step 3: Printing the frequent items to a file
     ofstream frequent, rare;
     frequent.open("./output/frequent.txt");
     rare.open("./output/rare.txt");
@@ -171,5 +173,5 @@ int main(){
             rare << "COUNT = " << i.second << endl;
         }
     }
-    cout << endl << "Frequent and Rare Itemsets are generated in the output folder." << endl << endl;
+    cout << endl << "Frequent and Rare Itemsets are generated in the output folder." << endl;
 }
